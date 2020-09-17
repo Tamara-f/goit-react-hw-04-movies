@@ -7,7 +7,7 @@ import Navigation from './Navigetion/Navigotion';
 import routes from '../routes';
 
 const AsyncMovies = lazy(() => import('../views/Movies'));
-const AsyncMovieDetails = lazy(() => import('../MovieDetails/MovieDetails'));
+const AsyncMovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
 
 export default class App extends Component {
   state = {};

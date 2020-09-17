@@ -1,13 +1,13 @@
 import React, { Component, lazy, Suspense } from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import { FetchMovieDetails } from '../services/FetchApi';
-import routes from '../routes';
+import { FetchMovieDetails } from '../../services/FetchApi';
+import routes from '../../routes';
 
 import s from './MovieDetails.module.css';
 
-const AsyncCast = lazy(() => import('../components/Cast'));
-const AsyncReviews = lazy(() => import('../components/Reviews'));
+const AsyncCast = lazy(() => import('../Cast'));
+const AsyncReviews = lazy(() => import('../Reviews'));
 
 export default class MovieDetails extends Component {
   state = {
