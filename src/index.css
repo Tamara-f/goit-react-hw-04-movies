@@ -19,35 +19,27 @@ ul {
 img {
   width: 250px;
 }
-.menu {
-  text-decoration: none;
-  width: 200px;
-  justify-content: space-around;
-}
 a {
   text-decoration: none;
 }
-.menu a {
-  color: #ffff;
-  background: #0e8bb8 linear-gradient(#0a5e7d, #0e8bb8);
-  padding: 10px;
-}
-.activelink {
-  color: lightblue;
-}
+
 .cover {
   display: flex;
   justify-content: space-between;
   width: 800px;
   text-align: left;
 }
+
 .movieImg {
   margin-right: 15px;
 }
+
 .aditianalUl {
   flex-wrap: wrap;
   width: 60px;
 }
+
+/* //movieDetails */
 .goBackBtn {
   margin-bottom: 15px;
 }

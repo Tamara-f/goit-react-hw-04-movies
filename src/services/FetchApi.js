@@ -17,18 +17,31 @@ export const FetchApiQuery = query => {
     .then(response => response.data.results);
 };
 
-export const FetchMovieDetails = movie_id => {
-  return axios.get(`/movie/${movie_id}?api_key=${API_Key}`);
+export const FetchMovieDetails = async movie_id => {
+  try {
+    const movie = axios.get(`/movie/${movie_id}?api_key=${API_Key}`);
+    const cast = axios.get(
+      `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_Key}`,
+    );
+    const reviews = axios.get(
+      `/movie/${movie_id}/reviews?api_key=${API_Key}&language=en-US&page=1`,
+    );
+    const movieDetails = await Promise.all([movie, cast, reviews]);
+
+    return movieDetails;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const FetchCast = movie_id => {
-  return axios.get(
-    `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_Key}`,
-  );
-};
+// export const FetchCast = movie_id => {
+//   return axios.get(
+//     `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_Key}`,
+//   );
+// };
 
-export const FetchReviews = movie_id => {
-  return axios.get(
-    `/movie/${movie_id}/reviews?api_key=${API_Key}&language=en-US&page=1`,
-  );
-};
+// export const FetchReviews = movie_id => {
+//   return axios.get(
+//     `/movie/${movie_id}/reviews?api_key=${API_Key}&language=en-US&page=1`,
+//   );
+// };

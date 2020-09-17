@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import {
-  FetchMovieDetails,
-  FetchCast,
-  FetchReviews,
-} from '../services/FetchApi';
+import { FetchMovieDetails } from '../services/FetchApi';
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 import routes from '../routes';
@@ -17,30 +13,13 @@ export default class MovieDetails extends Component {
     reviews: null,
   };
 
-  //   componentDidUpdate(prevProps, prevState) {
-  // const prevQuery = prevState.movie;
-  // const nextQuery = this.state.movie;
-  // if (prevQuery !== nextQuery) {
   componentDidMount() {
     console.log(this.props.match.params);
     FetchMovieDetails(this.props.match.params.movieId)
-      .then(movie => this.setState({ movie: movie.data }))
-      .catch(error => {
-        console.log(error);
-      });
-    FetchCast(this.props.match.params.movieId)
-      .then(cast => {
-        console.log(cast.data.cast);
-        this.setState({ cast: cast.data.cast });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    FetchReviews(this.props.match.params.movieId)
-      .then(rev => {
-        console.log(rev.data.results);
-        this.setState({ reviews: rev.data.results });
+      .then(data => {
+        this.setState({ movie: data[0].data });
+        this.setState({ cast: data[1].data.cast });
+        this.setState({ reviews: data[2].data.results });
       })
       .catch(error => {
         console.log(error);
@@ -114,7 +93,10 @@ export default class MovieDetails extends Component {
                   </>
                 )}
               </ul>
-              <Route path={`${match.path}/cast`} component={Cast} />
+              <Route
+                path={`${match.path}/cast`}
+                render={() => <Cast cast={this.state.cast} />}
+              />
               <Route path={`${match.path}/reviews`} component={Reviews} />
             </div>
           </>

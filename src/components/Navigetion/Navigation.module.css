@@ -1,0 +1,14 @@
+.menu {
+  text-decoration: none;
+  width: 200px;
+  justify-content: space-around;
+}
+.menu a {
+  color: #ffff;
+  background: #0e8bb8 linear-gradient(#0a5e7d, #0e8bb8);
+  padding: 10px;
+}
+
+.activelink {
+  color: lightblue;
+}

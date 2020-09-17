@@ -5,7 +5,7 @@ import Home from '../views/Home';
 import Movies from '../views/Movies';
 import MovieDetails from '../views/MovieDetails';
 import Section from './Section';
-import Navigation from '../components/Navigotion';
+import Navigation from './Navigetion/Navigotion';
 import routes from '../routes';
 
 export default class App extends Component {

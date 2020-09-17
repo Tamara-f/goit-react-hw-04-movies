@@ -39,7 +39,7 @@ export default class Movies extends Component {
   render() {
     const { movies, isLoading, error } = this.state;
     const { match } = this.props;
-    // console.log(movies);
+
     return (
       <>
         <Searchbar onSubmit={this.handleQuery} />
