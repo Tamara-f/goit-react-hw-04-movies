@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from '../views/Home';
 import Section from './Section';
-import Navigation from './Navigetion/Navigotion';
+import Navigation from './Navigation/Navigotion';
 import routes from '../routes';
 
 const AsyncMovies = lazy(() => import('../views/Movies'));
