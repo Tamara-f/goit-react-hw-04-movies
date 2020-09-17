@@ -5,7 +5,7 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   background: e7ecf2;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1;
 }
@@ -16,30 +16,13 @@ ul {
   justify-content: space-between;
   list-style: none;
 }
-img {
+.MoviesListItem img {
   width: 250px;
 }
 a {
   text-decoration: none;
+  color: black;
 }
-
-.cover {
-  display: flex;
-  justify-content: space-between;
-  width: 800px;
-  text-align: left;
-}
-
-.movieImg {
-  margin-right: 15px;
-}
-
-.aditianalUl {
-  flex-wrap: wrap;
-  width: 60px;
-}
-
-/* //movieDetails */
-.goBackBtn {
-  margin-bottom: 15px;
+h4 {
+  font-size: 12px;
 }

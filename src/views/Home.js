@@ -20,9 +20,8 @@ export default class Home extends Component {
   }
   render() {
     const { movies, isLoading, error } = this.state;
-    console.log(movies);
     const { match } = this.props;
-    // const url = 'https://image.tmdb.org/t/p/w500';
+
     return (
       <Section>
         {error && <p>Whoops, something went wrong: {error.message}</p>}

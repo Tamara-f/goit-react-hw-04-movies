@@ -1,32 +1,35 @@
-import React, { Component } from 'react';
-import { Switch, Route, NavLink } from 'react-router-dom';
+import React, { Component, lazy, Suspense } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import Home from '../views/Home';
-import Movies from '../views/Movies';
-import MovieDetails from '../views/MovieDetails';
 import Section from './Section';
 import Navigation from './Navigetion/Navigotion';
 import routes from '../routes';
 
-export default class App extends Component {
-  state = {
-    // movies: [],
-    // isLoading: false,
-    // error: null,
-  };
+const AsyncMovies = lazy(() => import('../views/Movies'));
+const AsyncMovieDetails = lazy(() => import('../MovieDetails/MovieDetails'));
 
-  // componentDidUpdate(prevState) {}
+export default class App extends Component {
+  state = {};
 
   render() {
     return (
       <Section>
         <Navigation />
-        <Switch>
-          <Route path={routes.home} exact component={Home} />
-          <Route path={routes.movies} exact component={Movies} />
-          <Route path={routes.movieDetails} component={MovieDetails} />
-          <Route path="/:movieId" component={MovieDetails} />
-        </Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route path={routes.home} exact component={Home} />
+            <Route path={routes.movies} exact component={AsyncMovies} />
+            <Route
+              path={routes.searchMovieDetails}
+              component={AsyncMovieDetails}
+            />
+            <Route
+              path={routes.homeMovieDetails}
+              component={AsyncMovieDetails}
+            />
+          </Switch>
+        </Suspense>
       </Section>
     );
   }

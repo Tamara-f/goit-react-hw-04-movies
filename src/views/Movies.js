@@ -58,10 +58,18 @@ export default class Movies extends Component {
                         state: { from: this.props.location },
                       }}
                     >
-                      <img
-                        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                        alt={movie.title}
-                      />
+                      {movie.poster_path ? (
+                        <img
+                          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                          alt={movie.title}
+                        />
+                      ) : (
+                        <img
+                          src="https://tinyurl.com/y2hp7nzc"
+                          alt="img"
+                          height="375"
+                        />
+                      )}
                       <p>{movie.title}</p>
                       <span>{movie.name}</span>
                     </Link>

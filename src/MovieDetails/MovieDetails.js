@@ -1,32 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Route, Link } from 'react-router-dom';
 
 import { FetchMovieDetails } from '../services/FetchApi';
-import Cast from '../components/Cast';
-import Reviews from '../components/Reviews';
 import routes from '../routes';
+
+import s from './MovieDetails.module.css';
+
+const AsyncCast = lazy(() => import('../components/Cast'));
+const AsyncReviews = lazy(() => import('../components/Reviews'));
 
 export default class MovieDetails extends Component {
   state = {
     movie: null,
-    cast: null,
-    reviews: null,
   };
 
   componentDidMount() {
-    console.log(this.props.match.params);
     FetchMovieDetails(this.props.match.params.movieId)
-      .then(data => {
-        this.setState({ movie: data[0].data });
-        this.setState({ cast: data[1].data.cast });
-        this.setState({ reviews: data[2].data.results });
-      })
+      .then(movie => this.setState({ movie: movie.data }))
       .catch(error => {
         console.log(error);
       });
   }
-  handleGoBack = e => {
-    console.log('e');
+
+  handleGoBack = () => {
     const { state } = this.props.location;
     if (state && state.from) {
       return this.props.history.push(state.from);
@@ -34,25 +30,33 @@ export default class MovieDetails extends Component {
     this.props.history.push(routes.home);
   };
   render() {
-    console.log(this.state.movie);
     const movie = this.state.movie;
     const { match } = this.props;
     const historyState = this.props.history.location.state;
 
     return (
       <>
-        <button className="goBackBtn" onClick={this.handleGoBack}>
+        <button className={s.goBackBtn} onClick={this.handleGoBack}>
           go back
         </button>
 
         {movie !== null && (
           <>
-            <div className="cover">
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                className="movieImg"
-                alt="img"
-              ></img>
+            <div className={s.cover}>
+              {movie.poster_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  className={s.movieImg}
+                  alt="img"
+                />
+              ) : (
+                <img
+                  src="https://tinyurl.com/y2hp7nzc"
+                  className={s.movieImg}
+                  alt="img"
+                  height="375"
+                />
+              )}
               <div>
                 <p>{movie.original_title}</p>
                 <span>{`(${movie.release_date.substr(0, 4)})`}</span>
@@ -64,9 +68,10 @@ export default class MovieDetails extends Component {
               </div>
             </div>
             <hr />
+
             <div>
               Aditianal information
-              <ul className="aditianalUl">
+              <ul className={s.aditianalUl}>
                 {historyState ? (
                   <>
                     <Link
@@ -93,11 +98,13 @@ export default class MovieDetails extends Component {
                   </>
                 )}
               </ul>
-              <Route
-                path={`${match.path}/cast`}
-                render={() => <Cast cast={this.state.cast} />}
-              />
-              <Route path={`${match.path}/reviews`} component={Reviews} />
+              <Suspense fallback={<div>Loading...</div>}>
+                <Route path={`${match.path}/cast`} component={AsyncCast} />
+                <Route
+                  path={`${match.path}/reviews`}
+                  component={AsyncReviews}
+                />
+              </Suspense>
             </div>
           </>
         )}
