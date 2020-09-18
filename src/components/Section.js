@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Section({ title, children }) {
+function Section({ children }) {
   return <section>{children}</section>;
 }
 

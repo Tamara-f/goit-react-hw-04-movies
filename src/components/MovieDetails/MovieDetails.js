@@ -6,8 +6,12 @@ import routes from '../../routes';
 
 import s from './MovieDetails.module.css';
 
-const AsyncCast = lazy(() => import('../Cast'));
-const AsyncReviews = lazy(() => import('../Reviews'));
+const AsyncCast = lazy(() =>
+  import('../Cast' /* webpackChunkName: 'MovieCast'*/),
+);
+const AsyncReviews = lazy(() =>
+  import('../Reviews' /* webpackChunkName: 'MovieReviews'*/),
+);
 
 export default class MovieDetails extends Component {
   state = {
