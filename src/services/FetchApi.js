@@ -5,24 +5,25 @@ axios.defaults.baseURL = `https://api.themoviedb.org/3`;
 
 export const movieFetchApi = async () => {
   try {
-    const res = await axios
-      .get(`/trending/all/day?api_key=${API_Key}`)
-      .then(response => response.data.results);
-    return res;
+    const { data } = await axios.get(`/trending/all/day?api_key=${API_Key}`);
+    return data.results;
   } catch (error) {
     throw error;
   }
 };
 
-export const FetchApiQuery = query => {
-  return axios
-    .get(
+export const FetchApiQuery = async query => {
+  try {
+    const { data } = await axios.get(
       `/search/movie?api_key=${API_Key}&language=en-US&page=1&query=${query}`,
-    )
-    .then(response => response.data.results);
+    );
+    return data.results;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const FetchMovieDetails = async movie_id => {
+export const FetchMovieDetails = movie_id => {
   return axios.get(`/movie/${movie_id}?api_key=${API_Key}`);
 };
 

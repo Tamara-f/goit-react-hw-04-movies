@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FetchApiQuery } from '../services/FetchApi';
-import Searchbar from '../components/Searchbar/Searchbar';
-import getQueryParams from '../utils/get-query-params';
-import Section from '../components/Section';
+import Searchbar from '../Searchbar/Searchbar';
+import Section from '../Section';
+
+import getQueryParams from '../../utils/get-query-params';
+import { FetchApiQuery } from '../../services/FetchApi';
 
 export default class Movies extends Component {
   state = {
     movies: [],
   };
+
   componentDidMount() {
     const { query } = getQueryParams(this.props.location.search);
     if (query) {
       this.fetchMovies(query);
     }
   }
+
   componentDidUpdate(prevProps, prevState) {
     const { query: prevQuery } = getQueryParams(prevProps.location.search);
     const { query: nextQuery } = getQueryParams(this.props.location.search);
@@ -23,6 +26,7 @@ export default class Movies extends Component {
       this.fetchMovies(nextQuery);
     }
   }
+
   fetchMovies = query =>
     FetchApiQuery(query)
       .then(movies => this.setState({ movies }))

@@ -13,11 +13,16 @@ body {
 ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 1400px;
   list-style: none;
 }
 .MoviesListItem img {
   width: 250px;
+  margin-right: 16px;
+}
+.castList li {
+  margin-right: 16px;
 }
 a {
   text-decoration: none;

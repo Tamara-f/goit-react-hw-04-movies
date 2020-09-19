@@ -6,6 +6,7 @@ export default class Reviews extends Component {
   state = {
     reviews: null,
   };
+
   componentDidMount() {
     FetchReviews(this.props.match.params.movieId)
       .then(rev => this.setState({ reviews: rev.data.results }))
@@ -13,29 +14,23 @@ export default class Reviews extends Component {
         console.log(error);
       });
   }
+
   render() {
     const reviews = this.state.reviews;
 
-    return (
-      <>
-        {reviews && (
-          <>
-            <p>Movie reviews</p>
-            {reviews.length > 0 ? (
-              <ul>
-                {reviews.map(item => (
-                  <li key={item.id}>
-                    <h3>{`Author: ${item.author}`}</h3>
-                    <p>{item.content}</p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No reviews</p>
-            )}
-          </>
-        )}
-      </>
-    );
+    return reviews ? (
+      reviews.length > 0 ? (
+        <ul>
+          {reviews.map(item => (
+            <li key={item.id}>
+              <h3>{`Author: ${item.author}`}</h3>
+              <p>{item.content}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No reviews</p>
+      )
+    ) : null;
   }
 }

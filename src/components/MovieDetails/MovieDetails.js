@@ -2,7 +2,7 @@ import React, { Component, lazy, Suspense } from 'react';
 import { Route, Link } from 'react-router-dom';
 
 import { FetchMovieDetails } from '../../services/FetchApi';
-import routes from '../../routes';
+import routes from '../../routes/routes';
 
 import s from './MovieDetails.module.css';
 
@@ -27,12 +27,14 @@ export default class MovieDetails extends Component {
   }
 
   handleGoBack = () => {
-    const { state } = this.props.location;
+    const { history, location } = this.props;
+    const { state } = location;
     if (state && state.from) {
-      return this.props.history.push(state.from);
+      return history.push(state.from);
     }
-    this.props.history.push(routes.home);
+    history.push(routes.home);
   };
+
   render() {
     const movie = this.state.movie;
     const { match } = this.props;

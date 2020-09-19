@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import MoviesList from '../components/MoviesList';
-import Section from '../components/Section';
-import { movieFetchApi } from '../services/FetchApi';
+
+import Section from '../Section';
+
+import { movieFetchApi } from '../../services/FetchApi';
 
 export default class Home extends Component {
   state = {

@@ -1,13 +1,14 @@
 import React, { lazy, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-import Home from '../views/Home';
+import Home from '../components/views/Home';
+
 import Section from './Section';
 import Navigation from './Navigation/Navigation';
-import routes from '../routes';
+import routes from '../routes/routes';
 
 const AsyncMovies = lazy(() =>
-  import('../views/Movies' /* webpackChunkName: 'Movies'*/),
+  import('../components/views/Movies' /* webpackChunkName: 'Movies'*/),
 );
 const AsyncMovieDetails = lazy(() =>
   import('./MovieDetails/MovieDetails' /* webpackChunkName: 'MovieDetails'*/),
@@ -26,6 +27,7 @@ export default function App() {
             component={AsyncMovieDetails}
           />
           <Route path={routes.homeMovieDetails} component={AsyncMovieDetails} />
+          <Redirect to={routes.home} />
         </Switch>
       </Suspense>
     </Section>
